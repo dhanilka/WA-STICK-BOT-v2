@@ -18,9 +18,14 @@ client.on('ready', () => {
     console.log('Client is ready!');
 });
 
-client.on('message', msg => {
-    if (msg.body == '!ping') {
+client.on('message', async (msg) => {
+    if (msg.body === 'ping') {
         msg.reply('pong');
+    }else if(msg.type === 'image'){
+        const media = await msg.downloadMedia();
+        client.sendMessage(msg.from, media, {sendMediaAsSticker:true})
+    }else{
+        msg.reply(`I'm a Sticker Bot🤖 \n\nSend me a photo to convert into a Sticker 🖼️ \n \nProgrammed by Dhanilka Demonio </> `)
     }
 });
 
